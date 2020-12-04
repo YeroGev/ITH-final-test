@@ -13,11 +13,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.androidtest.R;
 import com.example.androidtest.databinding.FragmentNewsBinding;
 import com.example.androidtest.interfaces.FragmentSendDataListener;
 import com.example.androidtest.interfaces.RecyclerViewItemClickListener;
+import com.example.androidtest.models.AnswerModel;
 import com.example.androidtest.models.ArticleResponseModel;
 import com.example.androidtest.models.NewsResponseModel;
 import com.example.androidtest.models.adapters.NewsRecyclerViewAdapter;
@@ -84,6 +86,17 @@ public class NewsFragment extends BaseFragment {
                 mNewsRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
+        mNewsViewModel.getAnswerModelsLiveData().observe(requireActivity(), new Observer<AnswerModel>() {
+            @Override
+            public void onChanged(AnswerModel answerModel) {
+                showMessage();
+            }
+        });
+
+    }
+
+    private void showMessage() {
+        Toast.makeText(requireActivity(), mNewsViewModel.getAnswerModelsLiveData().getValue().toString(), Toast.LENGTH_SHORT).show();
     }
 
     private void configureRecyclerView(NewsResponseModel newsResponseModel) {
