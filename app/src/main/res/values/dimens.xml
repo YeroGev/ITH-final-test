@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="margin_Padding_size">8dp</dimen>
+    <dimen name="image_width_size">120dp</dimen>
+    <dimen name="image_height_size">150dp</dimen>
+    <dimen name="text_width">200dp</dimen>
+</resources>
