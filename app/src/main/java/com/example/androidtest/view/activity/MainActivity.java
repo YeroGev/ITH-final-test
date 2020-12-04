@@ -25,11 +25,7 @@ public class MainActivity extends BaseActivity implements FragmentSendDataListen
 
     @Override
     public void onClick(ArticleResponseModel articleResponseModel) {
-        WebSiteShowFragment webSiteShowFragment = new WebSiteShowFragment();
-        Bundle bundle = new Bundle();
-        bundle.putString(Constants.SEND_DATA_FROM_NEWS_FRAGMENT_KAY, articleResponseModel.getUrl());
-        webSiteShowFragment.setArguments(bundle);
-        configureFragmentWithFragmentName(webSiteShowFragment, Constants.SHOW_NEWS_FRAGMENT_TAG);
+        goToNewsPage(articleResponseModel);
     }
 
     private void configureFragment(Fragment fragment) {
@@ -41,5 +37,13 @@ public class MainActivity extends BaseActivity implements FragmentSendDataListen
                 getSupportFragmentManager(),
                 fragment,
                 name);
+    }
+
+    private void goToNewsPage(ArticleResponseModel articleResponseModel){
+        WebSiteShowFragment webSiteShowFragment = new WebSiteShowFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString(Constants.SEND_DATA_FROM_NEWS_FRAGMENT_KAY, articleResponseModel.getUrl());
+        webSiteShowFragment.setArguments(bundle);
+        configureFragmentWithFragmentName(webSiteShowFragment, Constants.SHOW_NEWS_FRAGMENT_TAG);
     }
 }
