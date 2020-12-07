@@ -11,7 +11,7 @@ public class NewsRepositoryImpl implements NewsRepository{
     private ApiService mApiService;
 
     public NewsRepositoryImpl() {
-        mApiService = ApiClient.GetInstance().getRetrofitInstance().create(ApiService.class);
+        mApiService = ApiClient.getInstance().getRetrofitInstance().create(ApiService.class);
     }
 
     @Override

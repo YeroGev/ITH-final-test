@@ -16,7 +16,7 @@ public class ApiClient {
         createRetrofit();
     }
 
-    public static ApiClient GetInstance() {
+    public static ApiClient getInstance() {
         if (sInstance == null){
             synchronized (ApiClient.class){
                 if (sInstance == null){

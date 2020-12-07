@@ -7,7 +7,7 @@ public class Constants {
 
     public static final int SPLASH_SLEEP_TIME = 3000;
 
-    public static final String SEND_DATA_FROM_NEWS_FRAGMENT_KAY = "send data from news fragment";
+    public static final String SEND_DATA_FROM_NEWS_FRAGMENT_KAY = "sendDataFromNewsFragment";
 
     public static final String SHOW_NEWS_FRAGMENT_TAG = "webSiteShowFragment";
 }

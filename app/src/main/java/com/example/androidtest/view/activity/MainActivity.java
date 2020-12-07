@@ -5,15 +5,15 @@ import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 
 import com.example.androidtest.Constants;
+import com.example.androidtest.interfaces.RecyclerViewItemClickListener;
 import com.example.androidtest.managers.ITHFragmentManager;
 import com.example.androidtest.R;
-import com.example.androidtest.interfaces.FragmentSendDataListener;
 import com.example.androidtest.models.ArticleResponseModel;
 import com.example.androidtest.view.activity.base.BaseActivity;
 import com.example.androidtest.view.fragments.NewsFragment;
 import com.example.androidtest.view.fragments.WebSiteShowFragment;
 
-public class MainActivity extends BaseActivity implements FragmentSendDataListener {
+public class MainActivity extends BaseActivity implements RecyclerViewItemClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

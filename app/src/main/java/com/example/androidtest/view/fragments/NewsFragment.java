@@ -4,29 +4,23 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.androidtest.R;
 import com.example.androidtest.databinding.FragmentNewsBinding;
-import com.example.androidtest.interfaces.FragmentSendDataListener;
 import com.example.androidtest.interfaces.RecyclerViewItemClickListener;
-import com.example.androidtest.models.AnswerModel;
+import com.example.androidtest.models.ResponseModel;
 import com.example.androidtest.models.ArticleResponseModel;
 import com.example.androidtest.models.NewsResponseModel;
 import com.example.androidtest.models.adapters.NewsRecyclerViewAdapter;
 import com.example.androidtest.view.fragments.base.BaseFragment;
 import com.example.androidtest.viewModel.NewsViewModel;
-
-import java.util.List;
 
 
 public class NewsFragment extends BaseFragment {
@@ -34,7 +28,7 @@ public class NewsFragment extends BaseFragment {
     private FragmentNewsBinding mFragmentNewsBinding;
     private NewsViewModel mNewsViewModel;
     private NewsRecyclerViewAdapter mNewsRecyclerViewAdapter;
-    private FragmentSendDataListener mFragmentSendDataListener;
+    private RecyclerViewItemClickListener mFragmentSendDataListener;
 
     public static NewsFragment newInstance() {
         return new NewsFragment();
@@ -57,15 +51,10 @@ public class NewsFragment extends BaseFragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
-    @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (context instanceof FragmentSendDataListener) {
-            mFragmentSendDataListener = (FragmentSendDataListener) context;
+        if (context instanceof RecyclerViewItemClickListener) {
+            mFragmentSendDataListener = (RecyclerViewItemClickListener) context;
         }
     }
 
@@ -77,22 +66,20 @@ public class NewsFragment extends BaseFragment {
         mNewsViewModel = new ViewModelProvider(getActivity()).get(NewsViewModel.class);
     }
 
-
     private void initObservers() {
-        mNewsViewModel.getNewsResponseModelsLiveData().observe(requireActivity(), new Observer<NewsResponseModel>() {
+        mNewsViewModel.getNewsResponseModelsLiveData().observe(this, new Observer<NewsResponseModel>() {
             @Override
             public void onChanged(NewsResponseModel newsResponseModel) {
                 configureRecyclerView(newsResponseModel);
                 mNewsRecyclerViewAdapter.notifyDataSetChanged();
             }
         });
-        mNewsViewModel.getAnswerModelsLiveData().observe(requireActivity(), new Observer<AnswerModel>() {
+        mNewsViewModel.getAnswerModelsLiveData().observe(this, new Observer<ResponseModel>() {
             @Override
-            public void onChanged(AnswerModel answerModel) {
+            public void onChanged(ResponseModel responseModel) {
                 showMessage();
             }
         });
-
     }
 
     private void showMessage() {
@@ -100,9 +87,8 @@ public class NewsFragment extends BaseFragment {
     }
 
     private void configureRecyclerView(NewsResponseModel newsResponseModel) {
-        List<ArticleResponseModel> articleResponseModelList = newsResponseModel.getArticles();
         mFragmentNewsBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        mNewsRecyclerViewAdapter = new NewsRecyclerViewAdapter(articleResponseModelList, new RecyclerViewItemClickListener() {
+        mNewsRecyclerViewAdapter = new NewsRecyclerViewAdapter(newsResponseModel.getArticles(), new RecyclerViewItemClickListener() {
             @Override
             public void onClick(ArticleResponseModel articleResponseModel) {
                 mFragmentSendDataListener.onClick(articleResponseModel);
@@ -118,5 +104,4 @@ public class NewsFragment extends BaseFragment {
             mFragmentSendDataListener = null;
         }
     }
-
 }

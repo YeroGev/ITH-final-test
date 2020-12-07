@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.androidtest.databinding.RecycerViewBinding;
+import com.example.androidtest.databinding.RecyclerViewBinding;
 import com.example.androidtest.interfaces.RecyclerViewItemClickListener;
 import com.example.androidtest.models.ArticleResponseModel;
 
@@ -16,7 +16,7 @@ import java.util.List;
 
 public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerViewAdapter.RecyclerViewViewHolder> {
 
-    private static RecycerViewBinding mRecyclerViewBinding;
+    private RecyclerViewBinding mRecyclerViewBinding;
     private final List<ArticleResponseModel> mArticleResponseModels;
     private RecyclerViewItemClickListener mRecyclerViewItemClickListener;
 
@@ -28,7 +28,7 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
     @NonNull
     @Override
     public RecyclerViewViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        mRecyclerViewBinding = RecycerViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
+        mRecyclerViewBinding = RecyclerViewBinding.inflate(LayoutInflater.from(parent.getContext()), parent, false);
         return new RecyclerViewViewHolder(mRecyclerViewBinding);
     }
 
@@ -51,19 +51,22 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
 
     public static class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
 
-        public RecyclerViewViewHolder(@NonNull RecycerViewBinding recycerViewBinding) {
-            super(recycerViewBinding.getRoot());
+        private final RecyclerViewBinding mRecyclerViewBindingInViewHolder;
+
+        public RecyclerViewViewHolder(@NonNull RecyclerViewBinding recyclerViewBinding) {
+            super(recyclerViewBinding.getRoot());
+            this.mRecyclerViewBindingInViewHolder = recyclerViewBinding;
         }
 
         public void bind(ArticleResponseModel articleResponseModel) {
-            mRecyclerViewBinding.setArticle(articleResponseModel);
+            mRecyclerViewBindingInViewHolder.setArticle(articleResponseModel);
             getImage(articleResponseModel);
         }
 
         public void getImage(ArticleResponseModel articleResponseModel) {
-            Glide.with(mRecyclerViewBinding.getRoot())
+            Glide.with(mRecyclerViewBindingInViewHolder.getRoot())
                     .load(articleResponseModel.getUrlToImage())
-                    .into(mRecyclerViewBinding.recImageView);
+                    .into(mRecyclerViewBindingInViewHolder.recImageView);
 
         }
     }

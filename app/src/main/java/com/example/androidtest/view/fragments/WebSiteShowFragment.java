@@ -21,7 +21,6 @@ public class WebSiteShowFragment extends BaseFragment {
     private WebView mWebView;
     private String mUrl;
 
-
     public static WebSiteShowFragment newInstance() {
         return new WebSiteShowFragment();
     }
@@ -29,7 +28,9 @@ public class WebSiteShowFragment extends BaseFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mUrl = getArguments().getString(Constants.SEND_DATA_FROM_NEWS_FRAGMENT_KAY);
+        if (getArguments().getString(Constants.SEND_DATA_FROM_NEWS_FRAGMENT_KAY)!= null) {
+            mUrl = getArguments().getString(Constants.SEND_DATA_FROM_NEWS_FRAGMENT_KAY);
+        }
         getActivity().setTitle(mUrl);
     }
 
@@ -64,5 +65,4 @@ public class WebSiteShowFragment extends BaseFragment {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.loadUrl(url);
     }
-
 }

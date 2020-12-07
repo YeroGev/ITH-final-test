@@ -1,13 +1,11 @@
 package com.example.androidtest.viewModel;
 
-import android.util.Log;
-
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.androidtest.enums.AnswerType;
-import com.example.androidtest.models.AnswerModel;
+import com.example.androidtest.enums.ResponseType;
+import com.example.androidtest.models.ResponseModel;
 import com.example.androidtest.models.NewsResponseModel;
 import com.example.androidtest.repository.NewsRepository;
 import com.example.androidtest.repository.NewsRepositoryImpl;
@@ -25,9 +23,7 @@ public class NewsViewModel extends ViewModel {
     private final CompositeDisposable mCompositeDisposable;
 
     private final MutableLiveData<NewsResponseModel> mNewsResponseModelMutableLiveData = new MutableLiveData<>();
-    private final MutableLiveData<AnswerModel> mAnswerTypeMutableLiveData = new MutableLiveData<>();
-
-
+    private final MutableLiveData<ResponseModel> mResponseTypeMutableLiveData = new MutableLiveData<>();
 
     public NewsViewModel() {
         mNewsRepository = new NewsRepositoryImpl();
@@ -46,14 +42,14 @@ public class NewsViewModel extends ViewModel {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        AnswerModel answerModel = new AnswerModel(AnswerType.ERROR,e.getMessage());
-                        mAnswerTypeMutableLiveData.setValue(answerModel);
+                        ResponseModel responseModel = new ResponseModel(ResponseType.ERROR,e.getMessage());
+                        mResponseTypeMutableLiveData.setValue(responseModel);
                     }
 
                     @Override
                     public void onComplete() {
-                        AnswerModel answerModel = new AnswerModel(AnswerType.COMPLETE,"");
-                        mAnswerTypeMutableLiveData.setValue(answerModel);
+                        ResponseModel responseModel = new ResponseModel(ResponseType.COMPLETE,"");
+                        mResponseTypeMutableLiveData.setValue(responseModel);
                     }
                 }));
     }
@@ -62,8 +58,8 @@ public class NewsViewModel extends ViewModel {
         return mNewsResponseModelMutableLiveData;
     }
 
-    public LiveData<AnswerModel> getAnswerModelsLiveData() {
-        return mAnswerTypeMutableLiveData;
+    public LiveData<ResponseModel> getAnswerModelsLiveData() {
+        return mResponseTypeMutableLiveData;
     }
 
     private void dispose() {

@@ -1,6 +1,6 @@
 package com.example.androidtest.enums;
 
-public enum AnswerType {
+public enum ResponseType {
 
     ERROR,
     COMPLETE
