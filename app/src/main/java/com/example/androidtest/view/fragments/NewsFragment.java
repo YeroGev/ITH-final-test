@@ -19,7 +19,7 @@ import com.example.androidtest.interfaces.RecyclerViewItemClickListener;
 import com.example.androidtest.models.ResponseModel;
 import com.example.androidtest.models.ArticleResponseModel;
 import com.example.androidtest.models.NewsResponseModel;
-import com.example.androidtest.models.adapters.NewsRecyclerViewAdapter;
+import com.example.androidtest.view.adapters.NewsRecyclerViewAdapter;
 import com.example.androidtest.view.fragments.base.BaseFragment;
 import com.example.androidtest.viewModel.NewsViewModel;
 

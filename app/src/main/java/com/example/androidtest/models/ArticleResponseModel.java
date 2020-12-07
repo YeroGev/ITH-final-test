@@ -92,5 +92,4 @@ public class ArticleResponseModel {
     public void setContent(String content) {
         this.content = content;
     }
-
 }

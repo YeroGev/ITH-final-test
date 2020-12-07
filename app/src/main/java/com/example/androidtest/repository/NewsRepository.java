@@ -7,5 +7,4 @@ import io.reactivex.Observable;
 public interface NewsRepository {
 
     Observable<NewsResponseModel> getNewsResponseModel();
-
 }

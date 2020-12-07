@@ -4,5 +4,4 @@ public enum ResponseType {
 
     ERROR,
     COMPLETE
-
 }

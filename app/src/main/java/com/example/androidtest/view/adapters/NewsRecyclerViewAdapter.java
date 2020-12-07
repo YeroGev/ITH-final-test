@@ -1,4 +1,4 @@
-package com.example.androidtest.models.adapters;
+package com.example.androidtest.view.adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,9 +69,5 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
                     .load(articleResponseModel.getUrlToImage())
                     .into(mRecyclerViewBindingInViewHolder.recImageView);
         }
-    }
-
-    public void setListener(RecyclerViewItemClickListener listener) {
-        this.mRecyclerViewItemClickListener = listener;
     }
 }

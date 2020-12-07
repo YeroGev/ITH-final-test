@@ -9,7 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class ApiClient {
 
     private static volatile ApiClient sInstance;
-
     private Retrofit mRetrofit;
 
     public ApiClient() {
@@ -17,9 +16,9 @@ public class ApiClient {
     }
 
     public static ApiClient getInstance() {
-        if (sInstance == null){
-            synchronized (ApiClient.class){
-                if (sInstance == null){
+        if (sInstance == null) {
+            synchronized (ApiClient.class) {
+                if (sInstance == null) {
                     return new ApiClient();
                 }
             }
@@ -27,7 +26,7 @@ public class ApiClient {
         return sInstance;
     }
 
-    private void createRetrofit(){
+    private void createRetrofit() {
         mRetrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -35,7 +34,7 @@ public class ApiClient {
                 .build();
     }
 
-    public  Retrofit getRetrofitInstance(){
+    public Retrofit getRetrofitInstance() {
         return mRetrofit;
     }
 }

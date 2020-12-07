@@ -4,7 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class SourceResponseModel {
 
-
     @SerializedName("id")
     private Object id;
 
@@ -26,5 +25,4 @@ public class SourceResponseModel {
     public void setName(String name) {
         this.name = name;
     }
-
 }
