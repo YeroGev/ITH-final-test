@@ -19,7 +19,6 @@ import io.reactivex.schedulers.Schedulers;
 public class NewsViewModel extends ViewModel {
 
     private final NewsRepository mNewsRepository;
-
     private final CompositeDisposable mCompositeDisposable;
 
     private final MutableLiveData<NewsResponseModel> mNewsResponseModelMutableLiveData = new MutableLiveData<>();

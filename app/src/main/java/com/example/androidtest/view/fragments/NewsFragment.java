@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -38,7 +39,6 @@ public class NewsFragment extends BaseFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initViewModels();
-        initObservers();
         loadData();
         getActivity().setTitle("News");
     }
@@ -48,6 +48,13 @@ public class NewsFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         mFragmentNewsBinding = FragmentNewsBinding.inflate(inflater, null, false);
         return mFragmentNewsBinding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        configureRecyclerView();
+        initObservers();
     }
 
     @Override
@@ -70,11 +77,11 @@ public class NewsFragment extends BaseFragment {
         mNewsViewModel.getNewsResponseModelsLiveData().observe(this, new Observer<NewsResponseModel>() {
             @Override
             public void onChanged(NewsResponseModel newsResponseModel) {
-                configureRecyclerView(newsResponseModel);
-                mNewsRecyclerViewAdapter.notifyDataSetChanged();
+                setRecyclerViewItems(newsResponseModel);
             }
         });
-        mNewsViewModel.getAnswerModelsLiveData().observe(this, new Observer<ResponseModel>() {
+
+        mNewsViewModel.getAnswerModelsLiveData().observe(getViewLifecycleOwner(), new Observer<ResponseModel>() {
             @Override
             public void onChanged(ResponseModel responseModel) {
                 showMessage();
@@ -86,15 +93,21 @@ public class NewsFragment extends BaseFragment {
         Toast.makeText(requireActivity(), mNewsViewModel.getAnswerModelsLiveData().getValue().toString(), Toast.LENGTH_SHORT).show();
     }
 
-    private void configureRecyclerView(NewsResponseModel newsResponseModel) {
+    private void configureRecyclerView() {
         mFragmentNewsBinding.recyclerView.setLayoutManager(new LinearLayoutManager(getActivity().getApplicationContext()));
-        mNewsRecyclerViewAdapter = new NewsRecyclerViewAdapter(newsResponseModel.getArticles(), new RecyclerViewItemClickListener() {
+        mNewsRecyclerViewAdapter = new NewsRecyclerViewAdapter();
+        mFragmentNewsBinding.recyclerView.setAdapter(mNewsRecyclerViewAdapter);
+    }
+
+    private void setRecyclerViewItems(NewsResponseModel newsResponseModel){
+        mNewsRecyclerViewAdapter.setArticleResponseModels(newsResponseModel.getArticles());
+        mNewsRecyclerViewAdapter.setRecyclerViewItemClickListener(new RecyclerViewItemClickListener() {
             @Override
             public void onClick(ArticleResponseModel articleResponseModel) {
                 mFragmentSendDataListener.onClick(articleResponseModel);
             }
         });
-        mFragmentNewsBinding.recyclerView.setAdapter(mNewsRecyclerViewAdapter);
+        mNewsRecyclerViewAdapter.notifyDataSetChanged();
     }
 
     @Override

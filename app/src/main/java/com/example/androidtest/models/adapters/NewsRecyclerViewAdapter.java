@@ -3,10 +3,8 @@ package com.example.androidtest.models.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.bumptech.glide.Glide;
 import com.example.androidtest.databinding.RecyclerViewBinding;
 import com.example.androidtest.interfaces.RecyclerViewItemClickListener;
@@ -17,12 +15,15 @@ import java.util.List;
 public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerViewAdapter.RecyclerViewViewHolder> {
 
     private RecyclerViewBinding mRecyclerViewBinding;
-    private final List<ArticleResponseModel> mArticleResponseModels;
+    private List<ArticleResponseModel> mArticleResponseModels;
     private RecyclerViewItemClickListener mRecyclerViewItemClickListener;
 
-    public NewsRecyclerViewAdapter(List<ArticleResponseModel> mArticleResponseModels, RecyclerViewItemClickListener listener) {
+    public void setArticleResponseModels(List<ArticleResponseModel> mArticleResponseModels) {
         this.mArticleResponseModels = mArticleResponseModels;
-        this.mRecyclerViewItemClickListener = listener;
+    }
+
+    public void setRecyclerViewItemClickListener(RecyclerViewItemClickListener mRecyclerViewItemClickListener) {
+        this.mRecyclerViewItemClickListener = mRecyclerViewItemClickListener;
     }
 
     @NonNull
@@ -46,7 +47,7 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
 
     @Override
     public int getItemCount() {
-        return mArticleResponseModels.size();
+        return mArticleResponseModels == null ? 0 : mArticleResponseModels.size();
     }
 
     public static class RecyclerViewViewHolder extends RecyclerView.ViewHolder {
@@ -67,7 +68,6 @@ public class NewsRecyclerViewAdapter extends RecyclerView.Adapter<NewsRecyclerVi
             Glide.with(mRecyclerViewBindingInViewHolder.getRoot())
                     .load(articleResponseModel.getUrlToImage())
                     .into(mRecyclerViewBindingInViewHolder.recImageView);
-
         }
     }
 
