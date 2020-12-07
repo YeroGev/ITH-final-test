@@ -6,7 +6,6 @@
         <variable
             name="article"
             type="com.example.androidtest.models.ArticleResponseModel" />
-
     </data>
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
@@ -45,7 +44,5 @@
         app:layout_constraintTop_toBottomOf="@+id/materialTextView"
         android:text="@{article.title}"
         android:layout_margin="@dimen/margin_Padding_size"/>
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

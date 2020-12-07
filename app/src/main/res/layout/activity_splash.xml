@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".view.activity.SplashActivity">
-
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/splashImage"
         android:layout_width="wrap_content"
@@ -16,5 +15,4 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
